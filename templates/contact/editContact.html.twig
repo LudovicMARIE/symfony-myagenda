@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LSC- Page détails {% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block body %}
+    <section class="py-5 container">
+    <h1>Modifier un contact</h1>
+        {{ form_start(formContact)}}
+            {{form_row(formContact.nom)}}<br>
+            {{form_row(formContact.prenom)}}<br>
+            {{form_row(formContact.email)}}<br>
+            {{form_row(formContact.telephone)}}<br>
+            <input type="submit" value="Enregistrer" class="btn btn-sm btn-success">
+        {{form_end(formContact)}}
+    </section>
+
+    
+{% endblock %}

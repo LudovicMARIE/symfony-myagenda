@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails contact{% endblock %}
+
+{% block body %}
+
+<div class="col container">
+    <div class="col">
+        ID : {{contact.id}}
+    </div>
+    <div class="col">
+        Nom : {{contact.nom}}
+    </div>
+    <div class="col">
+        Prénom : {{contact.prenom}}
+    </div>
+    <div class="col">
+        Email : {{contact.email}}
+    </div>
+    <div class="col">
+        Téléphone : {{contact.telephone}}
+    </div>
+</div>
+{% endblock %}
