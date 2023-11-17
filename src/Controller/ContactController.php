@@ -36,6 +36,7 @@ class ContactController extends AbstractController
         $entityManager = $doctrine->getManager();
         $entityManager->remove($contact);
         $entityManager->flush();
+        $this->addFlash('success','Le contact a été supprimé');
 
         return $this->redirectToRoute('app_home');
     }
@@ -43,6 +44,7 @@ class ContactController extends AbstractController
     #[Route('/contact/edit/{id}', name: 'contact_edit')]
     public function contact_edit($id, ManagerRegistry $doctrine, Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $entityManager = $doctrine->getManager();
         $contact = $doctrine->getRepository(Contact::class)->find($id);
         $form = $this->createForm(ContactAddType::class, $contact);
@@ -51,9 +53,10 @@ class ContactController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $entityManager->persist($contact);
             $entityManager->flush();
+            $this->addFlash('success','Le contact a été modifié');
             return $this->redirectToRoute('app_home');
         }
-
+        
         return $this->renderForm('contact/editContact.html.twig', [
             'formContact' => $form,
         ]);
@@ -62,6 +65,7 @@ class ContactController extends AbstractController
     #[Route('/contact/add/', name: 'contact_add')]
     public function contact_add(ManagerRegistry $doctrine, Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $entityManager = $doctrine->getManager();
         $contact = new Contact();
         $form = $this->createForm(ContactAddType::class, $contact);
@@ -70,6 +74,7 @@ class ContactController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $entityManager->persist($contact);
             $entityManager->flush();
+            $this->addFlash('success','Le contact a été ajouté');
             return $this->redirectToRoute('app_home');
         }
 
